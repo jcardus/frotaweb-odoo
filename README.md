@@ -1,0 +1,1 @@
+# frotaweb-odoo
