@@ -30,7 +30,6 @@ jobs:
 
       - name: Set up SSH
         run: |
-          SERVER_IP="7"
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
