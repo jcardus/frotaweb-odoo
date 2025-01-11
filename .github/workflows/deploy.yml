@@ -25,12 +25,38 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Set up SSH
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H your-vps-ip >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: |
+          ssh root@188.245.216.187 << EOF
+            set -e  # Exit on errors
+            # Define project directory
+            PROJECT_DIR="/root/frotaweb-odoo"
+
+            # Check if the directory exists
+            if [ ! -d "$PROJECT_DIR" ]; then
+              echo "Directory does not exist. Cloning the repository..."
+              mkdir -p "$PROJECT_DIR"
+            git clone git@github.com:your-username/your-repo.git "$PROJECT_DIR"
+            fi
+
+            # Navigate to the project directory
+            cd "$PROJECT_DIR"
+
+            # Ensure the repository is clean
+            git reset --hard
+            git clean -fd
+
+            # Pull the latest changes
+            git fetch origin main
+            git reset --hard origin/main
+
+            # Install dependencies and restart services (adjust as needed)
+            # docker-compose up -d --build || pm2 restart app
+          EOF
