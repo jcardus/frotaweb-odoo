@@ -12,19 +12,10 @@ services:
     environment:
       - DB_HOST=db
     command: ["--", "--db-filter=^%d$"]
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    container_name: db
-    environment:
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo
-      POSTGRES_DB: odoo
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-volumes:
-  db_data:
-    driver: local
+    networks:
+      - default  # Use the same network as your 'db' container
+      
+networks:
+  default:
+    external:
+      name: bridge
