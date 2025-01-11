@@ -49,14 +49,14 @@ jobs:
               git clone "https://github.com/$GITHUB_REPOSITORY".git "$PROJECT_DIR"
             fi
 
-            # Navigate to the project directory
+            echo "Navigate to the project directory"
             cd "$PROJECT_DIR"
 
-            # Ensure the repository is clean
+            echo "Ensure the repository is clean"
             git reset --hard
             git clean -fd
 
-            # Pull the latest changes
+            echo "Pull the latest changes"
             git fetch origin main
             git reset --hard origin/main
 
