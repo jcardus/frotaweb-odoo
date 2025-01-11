@@ -19,6 +19,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      VPS_IP: "88.245.216.18" 
+      PROJECT_DIR: "/root/frotaweb-odoo"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,23 +30,22 @@ jobs:
 
       - name: Set up SSH
         run: |
+          SERVER_IP="7"
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H your-vps-ip >> ~/.ssh/known_hosts
+          ssh-keyscan -H $VPS_IP  >> ~/.ssh/known_hosts
 
       - name: Deploy
         run: |
-          ssh root@188.245.216.187 << EOF
+          ssh root@$VPS_IP << EOF
             set -e  # Exit on errors
-            # Define project directory
-            PROJECT_DIR="/root/frotaweb-odoo"
 
             # Check if the directory exists
             if [ ! -d "$PROJECT_DIR" ]; then
               echo "Directory does not exist. Cloning the repository..."
               mkdir -p "$PROJECT_DIR"
-            git clone git@github.com:your-username/your-repo.git "$PROJECT_DIR"
+              git clone git@github.com:$GITHUB_REPOSITORY.git "$PROJECT_DIR"
             fi
 
             # Navigate to the project directory
