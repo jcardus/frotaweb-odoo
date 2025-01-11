@@ -9,6 +9,8 @@ services:
     volumes:
       - extra-addons:/mnt/extra-addons
       - odoo-data:/var/lib/odoo
+      - ./odoo:/etc/odoo
+      
     environment:
       - DB_HOST=db
     command: ["--", "--db-filter=^%d$"]
