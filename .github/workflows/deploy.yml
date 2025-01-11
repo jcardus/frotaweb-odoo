@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh root@$VPS_IP "PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=$GITHUB_REPOSITORY bash -s" << EOF
+          ssh root@$VPS_IP "PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=${{ github.repository }} bash -s" << EOF
             set -e  # Exit on errors
             echo $PROJECT_DIR
             echo $GITHUB_REPOSITORY
