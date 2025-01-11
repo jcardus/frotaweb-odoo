@@ -40,7 +40,8 @@ jobs:
         run: |
           ssh root@$VPS_IP "PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=$GITHUB_REPOSITORY bash -s" << EOF
             set -e  # Exit on errors
-
+            echo $PROJECT_DIR
+            echo $GITHUB_REPOSITORY
             # Check if the directory exists
             if [ ! -d "$PROJECT_DIR" ]; then
               echo "Directory does not exist. Cloning the repository..."
