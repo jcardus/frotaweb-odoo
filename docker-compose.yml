@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  odoo:
+    image: odoo
+    container_name: odoo
+    ports:
+      - "8069:8069"
+    volumes:
+      - c5cdb9707135fde04d129c50d3559f8c5df497d46ad0208b0730ff2109c3c099:/mnt/extra-addons
+      - 4612812b96d5fab65bbd17e882e895b851789c952e5e84ed1311631db68c9c13:/var/lib/odoo
+    environment:
+      - DB_HOST=db
+    command: ["--", "--db-filter=^%d$"]
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: odoo
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
