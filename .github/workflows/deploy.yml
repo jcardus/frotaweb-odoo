@@ -55,11 +55,9 @@ jobs:
             echo "Ensure the repository is clean"
             git reset --hard
             git clean -fd
-
-            echo "Pull the latest changes"
             git fetch origin main
             git reset --hard origin/main
 
-            # Install dependencies and restart services (adjust as needed)
-            # docker-compose up -d --build || pm2 restart app
+            echo "restart"
+            docker-compose up -d
           EOF
