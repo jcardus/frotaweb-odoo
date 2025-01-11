@@ -46,7 +46,7 @@ jobs:
             if [ ! -d "$PROJECT_DIR" ]; then
               echo "Directory does not exist. Cloning the repository..."
               mkdir -p "$PROJECT_DIR"
-              git clone git@github.com:$GITHUB_REPOSITORY.git "$PROJECT_DIR"
+              git clone git@github.com:"$GITHUB_REPOSITORY".git "$PROJECT_DIR"
             fi
 
             # Navigate to the project directory
