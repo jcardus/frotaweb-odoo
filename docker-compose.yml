@@ -13,7 +13,6 @@ services:
       
     environment:
       - DB_HOST=db
-    command: ["-i web"]
     links:
       - db:db  # This creates a link with hostname 'db'  
 
