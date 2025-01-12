@@ -19,5 +19,6 @@
         'phone_validation',
     ],
     'auto_install': True,
-    'application': True
+    'application': True,
+    'installable': True
 }
