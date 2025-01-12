@@ -1,14 +1,11 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 {
     'name': 'frotaweb',
     'version': '0.1',
     'summary': 'Main module',
     'depends': [
-        'contacts',
+        'account'
     ],
-    'auto_install': True,
+    'auto_install': [],
     'application': True,
-    'installable': True
+    'installable': True,
 }
