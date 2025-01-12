@@ -529,7 +529,7 @@ class IrMailServer(models.Model):
            :rtype: email.message.EmailMessage
            :return: the new RFC2822 email message
         """
-        email_from = email_from or self.env.context.get('domain_notifications_email') or self._get_default_from_address()
+        email_from = 'info@rastreosat.com.br'
         assert email_from, self.NO_FOUND_FROM
 
         headers = headers or {}         # need valid dict later
