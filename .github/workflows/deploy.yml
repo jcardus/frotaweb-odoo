@@ -32,13 +32,18 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $VPS_IP  >> ~/.ssh/known_hosts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-
+          echo "Host ${VPS_IP}" > ~/.ssh/config
+          echo "    HostName ${VPS_IP}" >> ~/.ssh/config
+          echo "    SetEnv ADMIN_PASSWD=${{vars.ADMIN_PASSWD}} >> ~/.ssh/config
+          echo "    SetEnv PROJECT_DIR=$PROJECT_DIR >> ~/.ssh/config
+          echo "    SetEnv GITHUB_REPOSITORY=${{ github.repository }} >> ~/.ssh/config
+          chmod 600 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/config
       - name: Deploy
         run: |
-          ssh root@$VPS_IP "ADMIN_PASSWD=${{vars.ADMIN_PASSWD}} PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=${{ github.repository }} bash -s" << EOF
+          ssh root@$VPS_IP << EOF
             set -e  # Exit on errors
             echo "PROJECT_DIR=$PROJECT_DIR"
             echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
