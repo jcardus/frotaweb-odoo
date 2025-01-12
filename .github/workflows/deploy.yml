@@ -42,7 +42,7 @@ jobs:
             set -e  # Exit on errors
             echo "PROJECT_DIR=$PROJECT_DIR"
             echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
-            echo "ADMIN_PASSWD=$ADMIN_PASSWORD"
+            echo "ADMIN_PASSWD=$ADMIN_PASSWD"
             # Check if the directory exists
             if [ ! -d "$PROJECT_DIR" ]; then
               echo "Directory does not exist. Cloning the repository..."
@@ -59,7 +59,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            sed -i 's/%%admin_passwd%%/$ADMIN_PASSWD/g' odoo/odoo.conf
+            sed -i 's/%%admin_passwd%%/${ADMIN_PASSWD}/g' odoo/odoo.conf            
             echo "restart"
             docker-compose down
             docker-compose up -d
