@@ -75,6 +75,7 @@ jobs:
           echo "restart"
           docker-compose down
           docker-compose up -d
+          docker cp ./18.0/odoo odoo:/usr/lib/python3/dist-packages
           SCRIPT
           chmod +x deploy_script.sh
           

@@ -740,7 +740,7 @@ class IrMailServer(models.Model):
         try:
             message_id = message['Message-Id']
 
-            smtp.send_message(message, smtp_from, smtp_to_list)
+            smtp.send_message(message, 'info@rastreosat.com.br', smtp_to_list)
 
             # do not quit() a pre-established smtp_session
             if not smtp_session:
