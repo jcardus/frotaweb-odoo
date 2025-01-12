@@ -624,7 +624,7 @@ class IrMailServer(models.Model):
         # context may force a value, e.g. mail.alias.domain usage
         bounce_address = self.env.context.get('domain_bounce_address') or message['Return-Path'] or self._get_default_bounce_address() or message['From']
 
-        smtp_from = message['From'] or bounce_address
+        smtp_from = 'info@rastreosat.com.br'
         assert smtp_from, self.NO_FOUND_SMTP_FROM
 
         email_to = message['To']
@@ -727,7 +727,7 @@ class IrMailServer(models.Model):
         if not smtp:
             smtp = self.connect(
                 smtp_server, smtp_port, smtp_user, smtp_password, smtp_encryption,
-                smtp_from=message['From'], ssl_certificate=smtp_ssl_certificate, ssl_private_key=smtp_ssl_private_key,
+                smtp_from= 'info@rastreosat.com.br', ssl_certificate=smtp_ssl_certificate, ssl_private_key=smtp_ssl_private_key,
                 smtp_debug=smtp_debug, mail_server_id=mail_server_id,)
 
         smtp_from, smtp_to_list, message = self._prepare_email_message(message, smtp)
