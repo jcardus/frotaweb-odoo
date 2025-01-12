@@ -7,9 +7,9 @@ services:
     ports:
       - "8069:8069"
     volumes:
-      - extra-addons:/mnt/extra-addons
       - odoo-data:/var/lib/odoo
       - ./odoo:/etc/odoo
+      - ./addons:/addons
       
     environment:
       - DB_HOST=db
@@ -32,9 +32,6 @@ volumes:
   db-data:
     external: true
     name: 55ce562f91061c768eb74d46f0eda5ec73e248eaccb7d8a1999c8470b141f1a7
-  extra-addons:
-    external: true
-    name: c5cdb9707135fde04d129c50d3559f8c5df497d46ad0208b0730ff2109c3c099
   odoo-data:
     external: true
     name: 4612812b96d5fab65bbd17e882e895b851789c952e5e84ed1311631db68c9c13
