@@ -38,11 +38,11 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh root@$VPS_IP "ADMIN_PASSWORD=${{vars.ADMIN_PASSWD}} PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=${{ github.repository }} bash -s" << EOF
+          ssh root@$VPS_IP "ADMIN_PASSWD=${{vars.ADMIN_PASSWD}} PROJECT_DIR=$PROJECT_DIR GITHUB_REPOSITORY=${{ github.repository }} bash -s" << EOF
             set -e  # Exit on errors
             echo "PROJECT_DIR=$PROJECT_DIR"
             echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
-            echo "ADMIN_PASSWORD=$ADMIN_PASSWORD"
+            echo "ADMIN_PASSWD=$ADMIN_PASSWORD"
             # Check if the directory exists
             if [ ! -d "$PROJECT_DIR" ]; then
               echo "Directory does not exist. Cloning the repository..."
