@@ -61,7 +61,7 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
-          sed -i 's/%%admin_passwd%%/${ADMIN_PASSWD}/g' odoo/odoo.conf            
+          sed -i 's/%%admin_passwd%%/$ADMIN_PASSWD/g' odoo/odoo.conf            
           echo "restart"
           docker-compose down
           docker-compose up -d
