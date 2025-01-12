@@ -70,6 +70,8 @@ jobs:
           sed -i "s/%%SMTP_USER_NAME%%/$SMTP_USER_NAME/g" odoo/odoo.conf  
           sed -i "s/%%MAIL_SMTP_FROM%%/$MAIL_SMTP_FROM/g" odoo/odoo.conf
         
+          docker cp -r ./18.0 odoo:/usr/lib/python3/dist-packages
+
           echo "restart"
           docker-compose down
           docker-compose up -d
