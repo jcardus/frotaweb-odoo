@@ -36,14 +36,14 @@ jobs:
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           echo "Host ${VPS_IP}" > ~/.ssh/config
           echo "    HostName ${VPS_IP}" >> ~/.ssh/config
-          echo "    SetEnv ADMIN_PASSWD=${{vars.ADMIN_PASSWD}} >> ~/.ssh/config
-          echo "    SetEnv PROJECT_DIR=$PROJECT_DIR >> ~/.ssh/config
-          echo "    SetEnv GITHUB_REPOSITORY=${{ github.repository }} >> ~/.ssh/config
+          echo "    SetEnv ADMIN_PASSWD=${{vars.ADMIN_PASSWD}}" >> ~/.ssh/config
+          echo "    SetEnv PROJECT_DIR=$PROJECT_DIR" >> ~/.ssh/config
+          echo "    SetEnv GITHUB_REPOSITORY=${{ github.repository }}" >> ~/.ssh/config
           chmod 600 ~/.ssh/id_rsa
           chmod 600 ~/.ssh/config
       - name: Deploy
         run: |
-          ssh root@$VPS_IP << EOF
+          ssh root@$VPS_IP << 'EOF'
             set -e  # Exit on errors
             echo "PROJECT_DIR=$PROJECT_DIR"
             echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
