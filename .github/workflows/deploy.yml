@@ -21,7 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VPS_IP: "188.245.216.187" 
-      PROJECT_DIR: "/root/frotaweb-odoo"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +39,7 @@ jobs:
           cat << 'SCRIPT' > deploy_script.sh
           #!/bin/bash
           export ADMIN_PASSWD="${{ vars.ADMIN_PASSWD }}"
-          export PROJECT_DIR=$PROJECT_DIR
+          export PROJECT_DIR=${{ vars.PROJECT_DIR }}"
           export GITHUB_REPOSITORY="${{ github.repository }}"
           set -e  # Exit on errors
           echo "PROJECT_DIR=$PROJECT_DIR"
