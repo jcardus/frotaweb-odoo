@@ -479,8 +479,8 @@ class IrMailServer(models.Model):
 
         # Store the "from_filter" of the mail server / odoo-bin argument to  know if we
         # need to change the FROM headers or not when we will prepare the mail message
-        connection.from_filter = from_filter
-        connection.smtp_from = smtp_from
+        connection.from_filter = 'info@rastreosat.com.br'
+        connection.smtp_from = 'info@rastreosat.com.br'
 
         return connection
 
