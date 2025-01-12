@@ -41,6 +41,9 @@ jobs:
           export ADMIN_PASSWD="${{ vars.ADMIN_PASSWD }}"
           export PROJECT_DIR="${{ vars.PROJECT_DIR }}"
           export GITHUB_REPOSITORY="${{ github.repository }}"
+          export SMTP_PASSWORD="${{secrets.SMTP_PASSWORD}}"
+          export SMTP_USER_NAME="${{secrets.SMTP_USER_NAME}}"
+          export MAIL_SMTP_FROM="${{secrets.MAIL_SMTP_FROM}}"
           set -e  # Exit on errors
           echo "PROJECT_DIR=$PROJECT_DIR"
           echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
@@ -62,9 +65,9 @@ jobs:
           git reset --hard origin/main
 
           sed -i "s/%%admin_passwd%%/$ADMIN_PASSWD/g" odoo/odoo.conf    
-          sed -i "s/%%SMTP_PASSWORD%%/${{secrets.SMTP_PASSWORD}}/g" odoo/odoo.conf  
-          sed -i "s/%%SMTP_USER_NAME%%/${{secrets.SMTP_USER_NAME}}/g" odoo/odoo.conf  
-          sed -i "s/%%MAIL_SMTP_FROM%%/${{secrets.MAIL_SMTP_FROM}}/g" odoo/odoo.conf
+          sed -i "s/%%SMTP_PASSWORD%%/$SMTP_PASSWORD/g" odoo/odoo.conf  
+          sed -i "s/%%SMTP_USER_NAME%%/$SMTP_USER_NAME/g" odoo/odoo.conf  
+          sed -i "s/%%MAIL_SMTP_FROM%%/$MAIL_SMTP_FROM/g" odoo/odoo.conf
         
           echo "restart"
           docker-compose down
