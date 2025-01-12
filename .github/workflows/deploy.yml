@@ -22,7 +22,7 @@ jobs:
     env:
       VPS_IP: "188.245.216.187" 
       PROJECT_DIR: "/root/frotaweb-odoo"
-      ADMIN_PASSWD: ${{secrets.ADMIN_PASSWD}}
+      ADMIN_PASSWD: ${{vars.ADMIN_PASSWD}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
