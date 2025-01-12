@@ -48,6 +48,7 @@ jobs:
           echo "PROJECT_DIR=$PROJECT_DIR"
           echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
           echo "ADMIN_PASSWD=$ADMIN_PASSWD"
+          echo "SMTP_PASSWORD=$SMTP_PASSWORD"
           # Check if the directory exists
           if [ ! -d "$PROJECT_DIR" ]; then
             echo "Directory does not exist. Cloning the repository..."
