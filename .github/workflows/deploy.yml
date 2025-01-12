@@ -32,41 +32,41 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-          ssh-keyscan -H "$VPS_IP"  >> ~/.ssh/known_hosts
+          ssh-keyscan -H $VPS_IP  >> ~/.ssh/known_hosts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-          echo "Host ${VPS_IP}" > ~/.ssh/config
-          echo "    HostName ${VPS_IP}" >> ~/.ssh/config
-          echo "    SetEnv ADMIN_PASSWD=${{vars.ADMIN_PASSWD}}" >> ~/.ssh/config
-          echo "    SetEnv PROJECT_DIR=$PROJECT_DIR" >> ~/.ssh/config
-          echo "    SetEnv GITHUB_REPOSITORY=${{ github.repository }}" >> ~/.ssh/config
           chmod 600 ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/config
-          cat ~/.ssh/config 
       - name: Deploy
         run: |
-          ssh root@$VPS_IP << 'EOF'
-            set -e  # Exit on errors
-            echo "PROJECT_DIR=$PROJECT_DIR"
-            echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
-            echo "ADMIN_PASSWD=$ADMIN_PASSWD"
-            # Check if the directory exists
-            if [ ! -d "$PROJECT_DIR" ]; then
-              echo "Directory does not exist. Cloning the repository..."
-              mkdir -p "$PROJECT_DIR"
-              git clone "https://github.com/$GITHUB_REPOSITORY".git "$PROJECT_DIR"
-            fi
+          cat << 'SCRIPT' > deploy_script.sh
+          #!/bin/bash
+          export ADMIN_PASSWD="${{ vars.ADMIN_PASSWD }}"
+          export PROJECT_DIR="$PROJECT_DIR"
+          export GITHUB_REPOSITORY="${{ github.repository }}"
+          set -e  # Exit on errors
+          echo "PROJECT_DIR=$PROJECT_DIR"
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "ADMIN_PASSWD=$ADMIN_PASSWD"
+          # Check if the directory exists
+          if [ ! -d "$PROJECT_DIR" ]; then
+            echo "Directory does not exist. Cloning the repository..."
+            mkdir -p "$PROJECT_DIR"
+            git clone "https://github.com/$GITHUB_REPOSITORY".git "$PROJECT_DIR"
+          fi
 
-            echo "Navigate to the project directory"
-            cd "$PROJECT_DIR"
+          echo "Navigate to the project directory"
+          cd "$PROJECT_DIR"
 
-            echo "Ensure the repository is clean"
-            git reset --hard
-            git clean -fd
-            git fetch origin main
-            git reset --hard origin/main
+          echo "Ensure the repository is clean"
+          git reset --hard
+          git clean -fd
+          git fetch origin main
+          git reset --hard origin/main
 
-            sed -i 's/%%admin_passwd%%/${ADMIN_PASSWD}/g' odoo/odoo.conf            
-            echo "restart"
-            docker-compose down
-            docker-compose up -d
-          EOF
+          sed -i 's/%%admin_passwd%%/${ADMIN_PASSWD}/g' odoo/odoo.conf            
+          echo "restart"
+          docker-compose down
+          docker-compose up -d
+          SCRIPT
+          chmod +x deploy_script.sh
+          
+          ssh root@$VPS_IP 'bash -s' < deploy_script.sh
