@@ -41,9 +41,9 @@ jobs:
           export ADMIN_PASSWD="${{ vars.ADMIN_PASSWD }}"
           export PROJECT_DIR="${{ vars.PROJECT_DIR }}"
           export GITHUB_REPOSITORY="${{ github.repository }}"
-          export SMTP_PASSWORD="${{secrets.SMTP_PASSWORD}}"
-          export SMTP_USER_NAME="${{secrets.SMTP_USER_NAME}}"
-          export MAIL_SMTP_FROM="${{secrets.MAIL_SMTP_FROM}}"
+          export SMTP_PASSWORD="${{vars.SMTP_PASSWORD}}"
+          export SMTP_USER_NAME="${{vars.SMTP_USER_NAME}}"
+          export MAIL_SMTP_FROM="${{vars.MAIL_SMTP_FROM}}"
           set -e  # Exit on errors
           echo "PROJECT_DIR=$PROJECT_DIR"
           echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
