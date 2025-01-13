@@ -9,8 +9,7 @@
                 <t t-set="icon" t-value="'https://docs.frotaweb.com/dash.frotaweb.com/logo_large_dark.svg'"/>
                 <t t-set="title">frotaweb</t>
                 <t t-set="url" t-value="'/my/invoices?filterby=invoices'"/>
-                <t t-set="text">Acessar a plataforma</t>
-                <t t-set="placeholder_count" t-value="'invoice_count'"/>
+                <t t-set="text">Acessar a plataforma</t>                
             </t>
         </div>
         <div id="portal_vendor_category" position="inside">
@@ -18,8 +17,7 @@
                 <t t-set="icon" t-value="'https://docs.frotaweb.com/dash.frotaweb.com/logo_large_dark.svg'"/>
                 <t t-set="title">frotaweb</t>
                 <t t-set="url" t-value="'/my/invoices?filterby=invoices'"/>
-                <t t-set="text">Acessar a plataforma</t>
-                <t t-set="placeholder_count" t-value="'invoice_count'"/>
+                <t t-set="text">Acessar a plataforma</t>                
             </t>
         </div>
     </template>    
