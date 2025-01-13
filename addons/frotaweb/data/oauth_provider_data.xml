@@ -11,7 +11,7 @@
             <field name="auth_endpoint">https://%%AUTH_DOMAIN%%/authorize</field>
             <field name="data_endpoint">https://%%AUTH_DOMAIN%%/oauth/token</field>
             <field name="validation_endpoint">https://%%AUTH_DOMAIN%%/userinfo</field>
-            <field name="scope">profile email</field>
+            <field name="scope">openid profile email</field>
             <field name="body">frotaweb</field>
             <field name="autologin">True</field>
         </record>
