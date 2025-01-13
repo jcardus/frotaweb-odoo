@@ -3,7 +3,7 @@
     'version': '0.1',
     'summary': 'Main module',
     'depends': [
-        'account'
+        'account', 'portal'
     ],
     'auto_install': [],
     'application': True,
