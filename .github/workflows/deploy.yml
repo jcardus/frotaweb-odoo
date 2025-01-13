@@ -38,6 +38,7 @@ jobs:
         run: |
           cat << 'SCRIPT' > deploy_script.sh
           #!/bin/bash
+          sudo apt install unzip -y
           export ADMIN_PASSWD="${{ vars.ADMIN_PASSWD }}"
           export PROJECT_DIR="${{ vars.PROJECT_DIR }}"
           export GITHUB_REPOSITORY="${{ github.repository }}"
