@@ -8,4 +8,7 @@
     'auto_install': [],
     'application': True,
     'installable': True,
+    'data': [
+        'views/frotaweb_portal_templates.xml'
+    ],
 }
