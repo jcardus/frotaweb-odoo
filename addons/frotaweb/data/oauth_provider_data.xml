@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="auth_provider_my_custom_oauth" model="auth.oauth.provider">
+            <field name="name">frotaweb</field>
+            <field name="enabled">True</field>
+            <field name="client_id">91ttVQPxLQ3VrjZiH4XS9tBwJVI8wusb</field>
+            <field name="client_secret">%%OPEN_ID_CLIENT_SECRET%%</field>
+            <field name="auth_endpoint">https://%%AUTH_DOMAIN%%/authorize</field>
+            <field name="token_endpoint">https://%%AUTH_DOMAIN%%/oauth/token</field>
+            <field name="validation_endpoint">https://%%AUTH_DOMAIN%%/userinfo</field>
+            <field name="scope">profile email</field>
+        </record>
+    </data>
+</odoo>
