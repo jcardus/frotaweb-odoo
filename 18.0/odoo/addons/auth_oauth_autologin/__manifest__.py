@@ -13,4 +13,7 @@
     "depends": ["auth_oauth"],
     "data": ["views/auth_oauth_provider.xml"],
     "demo": [],
+    'auto_install': [],
+    'application': True,
+    'installable': True,
 }
