@@ -13,6 +13,7 @@
             <field name="validation_endpoint">https://%%AUTH_DOMAIN%%/userinfo</field>
             <field name="scope">profile email</field>
             <field name="body">frotaweb</field>
+            <field name="autologin">True</field>
         </record>
     </data>
 </odoo>
