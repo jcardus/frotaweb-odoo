@@ -6,21 +6,12 @@
         </xpath>
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'https://docs.frotaweb.com/dash.frotaweb.com/logo_large_dark.svg'"/>
+                <t t-set="icon" t-value="'https://docs.frotaweb.com/dash.frotaweb.com/logo_small.svg'"/>
                 <t t-set="title">frotaweb</t>
                 <t t-set="url" t-value="'/my/invoices?filterby=invoices'"/>
                 <t t-set="text">Acessar a plataforma</t>   
                 <t t-set="config_card" t-value="True"/>             
             </t>
-        </div>
-        <div id="portal_vendor_category" position="inside">
-            <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'https://docs.frotaweb.com/dash.frotaweb.com/logo_large_dark.svg'"/>
-                <t t-set="title">frotaweb</t>
-                <t t-set="url" t-value="'/my/invoices?filterby=invoices'"/>
-                <t t-set="text">Acessar a plataforma</t>    
-                <t t-set="config_card" t-value="True"/>            
-            </t>
-        </div>
+        </div>        
     </template>    
 </odoo>
