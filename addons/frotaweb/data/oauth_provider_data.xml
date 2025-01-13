@@ -6,9 +6,10 @@
             <field name="enabled">True</field>
             <field name="client_id">91ttVQPxLQ3VrjZiH4XS9tBwJVI8wusb</field>
             <field name="auth_endpoint">https://%%AUTH_DOMAIN%%/authorize</field>
-            <field name="token_endpoint">https://%%AUTH_DOMAIN%%/oauth/token</field>
+            <field name="data_endpoint">https://%%AUTH_DOMAIN%%/oauth/token</field>
             <field name="validation_endpoint">https://%%AUTH_DOMAIN%%/userinfo</field>
             <field name="scope">profile email</field>
+            <field name="body">frotaweb</field>
         </record>
     </data>
 </odoo>
