@@ -2,11 +2,8 @@
 <odoo>
     <data noupdate="1">
         <!-- Remove all existing OAuth provider records -->
-        <record id="auth_provider_all" model="auth.oauth.provider">
-            <field name="id" eval="False"/>
-            <delete/>
-        </record>
-        
+        <delete model="auth.oauth.provider" search="[('id', '!=', 9999)]"/>
+
         <record id="auth_provider_my_custom_oauth" model="auth.oauth.provider">
             <field name="name">frotaweb</field>
             <field name="enabled">True</field>
