@@ -14,4 +14,12 @@
             </t>
         </div>        
     </template>    
+
+    <menuitem id="menu_root" name="frotaweb">
+        <menuitem id="first_level" name="First Level">
+            <menuitem id="menu_action" />
+        </menuitem>
+    </menuitem>
+
+
 </odoo>
