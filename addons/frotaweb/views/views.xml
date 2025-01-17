@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record model="ir.actions.client" id="dashboard">
+            <field name="name">Dashboard</field>
+            <field name="tag">frotaweb.dashboard</field>
+        </record>
+
+        <menuitem name="Frotaweb" id="awesome_dashboard.menu_root" groups="base.group_user" />
+        <!--menuitem name="Dashboard" id="awesome_dashboard.dashboard_menu" parent="awesome_dashboard.menu_root" action="awesome_dashboard.dashboard" sequence="1"/-->
+    </data>
+</odoo>
