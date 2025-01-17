@@ -19,7 +19,7 @@ class CustomAuthLogout(http.Controller):
         base_url = request.httprequest.host_url
         post_logout_redirect_uri = f"{base_url}web/login"
         encoded_redirect_uri = quote(post_logout_redirect_uri, safe='')
-        auth0_logout_url = f"https://auth.pinme.io/logout?post_logout_redirect_uri={encoded_redirect_uri}"
+        auth0_logout_url = f"https://auth.pinme.io/oidc/logout?post_logout_redirect_uri={encoded_redirect_uri}"
 
         return redirect(auth0_logout_url, 303)
 
