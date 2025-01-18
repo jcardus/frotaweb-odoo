@@ -85,7 +85,7 @@ jobs:
           sed -i "s/%%SMTP_USER_NAME%%/$SMTP_USER_NAME/g" odoo/odoo.conf  
           sed -i "s/%%MAIL_SMTP_FROM%%/$MAIL_SMTP_FROM/g" odoo/odoo.conf
           sed -i "s|%%AUTH_DOMAIN%%|$AUTH_DOMAIN|g" addons/frotaweb/data/oauth_provider_data.xml
-          sed -i "s|%%OPEN_ID_CLIENT_SECRET%%|OPEN_ID_CLIENT_SECRET|g" 18/odoo/addons/auth_oauth/models/res_users.py
+          sed -i "s|%%OPEN_ID_CLIENT_SECRET%%|$OPEN_ID_CLIENT_SECRET|g" 18/odoo/addons/auth_oauth/models/res_users.py
         
           docker cp ./18.0 odoo:/usr/lib/python3/dist-packages
 
