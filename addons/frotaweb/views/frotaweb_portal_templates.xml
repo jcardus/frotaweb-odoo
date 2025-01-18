@@ -8,7 +8,7 @@
             <t t-call="portal.portal_docs_entry">
                 <t t-set="icon" t-value="'/frotaweb/static/src/img/logo.svg'"/>
                 <t t-set="title">frotaweb</t>
-                <t t-set="url" t-value="'https://dash.frotaweb.com/map/api/session/openid/auth'"/>
+                <t t-set="url" t-value="'https://dash.frotaweb.com/login?openid'"/>
                 <t t-set="text">Acessar a plataforma</t>
                 <t t-set="config_card" t-value="True"/>
             </t>
