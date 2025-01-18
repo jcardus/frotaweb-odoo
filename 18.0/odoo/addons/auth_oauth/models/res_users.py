@@ -31,12 +31,12 @@ class ResUsers(models.Model):
     def _auth_oauth_rpc(self, endpoint, access_token):
         _logger.error(endpoint)
         is_token_endpoint = endpoint.casefold().endswith('token')
-        
+
         # Auth0 client_id and client_secret (from your setup)
         client_id = "91ttVQPxLQ3VrjZiH4XS9tBwJVI8wusb"
-        client_secret = "eGRz1gqcIY_2KSJGyEZ1MfFkyHwBl1Q1AlucW8-KpuWwY5WSE-YtUND4Gueyo8D0"
+        client_secret = "%%OPEN_ID_CLIENT_SECRET%%"
 
-        
+
 
         if is_token_endpoint:
             payload = {
@@ -53,7 +53,7 @@ class ResUsers(models.Model):
                 response = requests.get(endpoint, headers={'Authorization': 'Bearer %s' % access_token}, timeout=10)
             else:
                 response = requests.get(endpoint, params={'access_token': access_token}, timeout=10)
-        
+
         if response.ok: # nb: could be a successful failure
             return response.json()
         _logger.error(response.text)
