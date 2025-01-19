@@ -60,18 +60,28 @@ class MaintenanceEquipment(models.Model):
     serial_no = fields.Char(
         required=True
     )
+    last_update = fields.Datetime(
+        compute="_compute_last_update",
+        store=False,
+        help="Displays the last known update time."
+    )
 
-    @api.model
-    def create(self, vals):
-        record = super(MaintenanceEquipment, self).create(vals)
-        try:
-            self._create_traccar(vals)
-        except UserError as e:
-            record.unlink()
-            raise e
-        return record
+    def _compute_last_update(self):
+        for record in self:
+            record.last_update = fields.Datetime.now()
 
-    def _create_traccar(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super(MaintenanceEquipment, self).create(vals_list)
+        for vals, record in zip(vals_list, records):
+            try:
+                record.create_traccar(vals)
+            except UserError as e:
+                record.unlink()
+                raise e
+        return records
+
+    def create_traccar(self, vals):
         user = self.env.user
         traccar_url = os.environ.get('TRACCAR_URL')
         if not traccar_url:

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-19 01:27+0000\n"
-"PO-Revision-Date: 2025-01-19 01:27+0000\n"
+"POT-Creation-Date: 2025-01-19 14:56+0000\n"
+"PO-Revision-Date: 2025-01-19 14:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,11 @@ msgid "Another asset already exists with this serial number!"
 msgstr ""
 
 #. module: frotaweb
+#: model:ir.model.fields,help:frotaweb.field_maintenance_equipment__last_update
+msgid "Displays the last known update time."
+msgstr ""
+
+#. module: frotaweb
 #: model:ir.ui.menu,name:frotaweb.menu_root
 msgid "Frotaweb"
 msgstr ""
@@ -34,6 +39,21 @@ msgstr ""
 #. module: frotaweb
 #: model:ir.actions.client,name:frotaweb.dashboard
 msgid "Frotaweb Dashboard"
+msgstr ""
+
+#. module: frotaweb
+#: model_terms:ir.ui.view,arch_db:frotaweb.view_users_form_oauth_inherit
+msgid "Integration token"
+msgstr ""
+
+#. module: frotaweb
+#: model:ir.model.fields,field_description:frotaweb.field_maintenance_equipment__last_update
+msgid "Last Update"
+msgstr ""
+
+#. module: frotaweb
+#: model_terms:ir.ui.view,arch_db:frotaweb.view_maintenance_equipment_form_inherit
+msgid "Last update"
 msgstr ""
 
 #. module: frotaweb
@@ -55,11 +75,6 @@ msgstr ""
 #. module: frotaweb
 #: model:ir.model.fields,help:frotaweb.field_res_users__traccar_token
 msgid "Token for accessing tracking platform API"
-msgstr ""
-
-#. module: frotaweb
-#: model_terms:ir.ui.view,arch_db:frotaweb.view_users_form_oauth_inherit
-msgid "Traccar Token"
 msgstr ""
 
 #. module: frotaweb
