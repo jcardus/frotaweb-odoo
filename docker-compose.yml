@@ -12,6 +12,8 @@ services:
       - ./addons:/addons
     links:
       - db:db  # This creates a link with hostname 'db'
+    environment:
+      - TRACCAR_URL=http://gps.frotaweb.com
 
   db:
     image: postgres:15
