@@ -7,7 +7,7 @@
         <!-- Define the URL action -->
         <record id="frotaweb_dashboard_action" model="ir.actions.act_url">
             <field name="name">Plataforma</field>
-            <field name="url">https://dash.frotaweb.com/login?openid</field>
+            <field name="url">https://dash.frotaweb.com/api/session/openid/auth</field>
             <field name="target">new</field> <!-- Opens in a new tab -->
         </record>
 
