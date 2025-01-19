@@ -3,6 +3,11 @@
     <data noupdate="1">
         <!-- Remove all existing OAuth provider records -->
         <delete model="auth.oauth.provider" search="[('id', '!=', 9999)]"/>
+        <function
+                model="ir.config_parameter"
+                name="set_param"
+                eval="('auth_signup.invitation_scope', 'b2b')"
+        />
 
         <record id="auth_provider_my_custom_oauth" model="auth.oauth.provider">
             <field name="name">frotaweb</field>
