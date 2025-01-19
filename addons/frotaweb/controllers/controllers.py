@@ -8,6 +8,7 @@ from datetime import datetime
 
 import requests
 
+from ..utils.traccar_api import TraccarAPI
 from odoo import http, models, fields, api, _
 from odoo.http import request
 from werkzeug.utils import redirect
@@ -70,23 +71,11 @@ class MaintenanceEquipment(models.Model):
     )
 
     def _compute_last_update(self):
-        user = self.env.user
         for record in self:
             record.last_update = False
-
-        traccar_url = os.environ.get('TRACCAR_URL')
-        if not traccar_url:
-            return
-        if not user.traccar_token:
-            raise UserError("The current user is not configured.")
-
-        headers = {
-            "Authorization": f"Bearer {user.traccar_token}",
-            "Content-Type": "application/json",
-        }
-
         try:
-            response = requests.get(f"{traccar_url}/api/devices", headers=headers)
+            traccar = TraccarAPI(self.env)
+            response = traccar.get("api/devices")
             if response.status_code == 200:
                 devices = {dev['uniqueId']: dev for dev in response.json()}
                 for record in self:
@@ -112,50 +101,33 @@ class MaintenanceEquipment(models.Model):
         return records
 
     def create_traccar(self, vals):
-        user = self.env.user
-        traccar_url = os.environ.get('TRACCAR_URL')
-        if not traccar_url:
-            raise UserError("Tracking server URL is not configured")
-
-        if not user.traccar_token:
-            raise UserError("The current user is not configured.")
-
-        headers = {
-            "Authorization": f"Bearer {user.traccar_token}",
-            "Content-Type": "application/json",
-        }
-        response = requests.post(f"{traccar_url}/api/devices",
-                                 json={"uniqueId": vals.get("serial_no"), "name": vals.get("name")},
-                                 headers=headers)
+        traccar = TraccarAPI(self.env)
+        response = traccar.post("api/devices",
+                                json={"uniqueId": vals.get("serial_no"), "name": vals.get("name")})
 
         if response.status_code != 200:
             raise UserError(_("Another asset already exists with this serial number!"))
 
     def unlink(self):
-        traccar_url = os.environ.get('TRACCAR_URL')
-        if not traccar_url:
-            raise UserError(_("Tracking server URL is not configured."))
-
-        headers = {
-            "Authorization": f"Bearer {self.env.user.traccar_token}"
-        }
-
         for record in self:
             try:
-                response = requests.get(f"{traccar_url}/api/devices", headers=headers)
+                traccar = TraccarAPI(self.env)
+                response = traccar.get("api/devices")
                 if response.status_code == 200:
                     devices = response.json()
                     device = next((dev for dev in devices if dev['uniqueId'] == record.serial_no), None)
-
                     if device:
                         traccar_device_id = device.get('id')
-                        delete_response = requests.delete(f"{traccar_url}/api/devices/{traccar_device_id}", headers=headers)
+                        delete_response = traccar.delete(f"api/devices/{traccar_device_id}")
                         if delete_response.status_code == 204:
-                            logger.info(f"Device with serial number {record.serial_no} deleted from Traccar successfully.")
+                            logger.info(
+                                f"Device with serial number {record.serial_no} deleted from Traccar successfully.")
                         else:
-                            logger.error(f"Failed to delete device {record.serial_no} from Traccar: {delete_response.text}")
+                            logger.error(
+                                f"Failed to delete device {record.serial_no} from Traccar: {delete_response.text}")
                     else:
                         logger.warning(f"Device with serial number {record.serial_no} not found in Traccar.")
             except Exception as e:
                 logger.error(f"Error while deleting device from Traccar: {e}")
         return super(MaintenanceEquipment, self).unlink()
+
