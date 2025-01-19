@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import os
 import random
+import requests
 
-from odoo import http
+from odoo import http, models, fields, api, _
 from odoo.http import request
 from werkzeug.utils import redirect
 from urllib.parse import quote
+from odoo.exceptions import UserError
 
 logger = logging.getLogger(__name__)
 
@@ -50,3 +53,40 @@ class Frotaweb(http.Controller):
             'total_amount': random.randint(100, 1000)
         }
 
+
+class MaintenanceEquipment(models.Model):
+    _inherit = 'maintenance.equipment'
+
+    serial_no = fields.Char(
+        required=True
+    )
+
+    @api.model
+    def create(self, vals):
+        record = super(MaintenanceEquipment, self).create(vals)
+        try:
+            self._create_traccar(vals)
+        except UserError as e:
+            record.unlink()
+            raise e
+        return record
+
+    def _create_traccar(self, vals):
+        user = self.env.user
+        traccar_url = os.environ.get('TRACCAR_URL')
+        if not traccar_url:
+            raise UserError("Tracking server URL is not configured")
+
+        if not user.traccar_token:
+            raise UserError("The current user is not configured.")
+
+        headers = {
+            "Authorization": f"Bearer {user.traccar_token}",
+            "Content-Type": "application/json",
+        }
+        response = requests.post(f"{traccar_url}/api/devices",
+                                 json={"uniqueId": vals.get("serial_no"), "name": vals.get("name")},
+                                 headers=headers)
+
+        if response.status_code != 200:
+            raise UserError(_("Another asset already exists with this serial number!"))

@@ -16,5 +16,21 @@
 
         <!-- Define the second-level menu -->
         <menuitem name="Plataforma" id="frotaweb.dashboard_menu" parent="frotaweb.menu_root" action="frotaweb_dashboard_action" sequence="1"/>
+
+        <record id="view_users_form_oauth_inherit" model="ir.ui.view">
+            <field name="name">auth.oauth.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="auth_oauth.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <field name="traccar_token" string="Traccar Token"/>
+                </xpath>
+            </field>
+        </record>
+
+
     </data>
+
+
+
 </odoo>
