@@ -10,7 +10,7 @@
     'installable': True,
     'data': [
         'data/oauth_provider_data.xml',
-        'views/frotaweb_portal_templates.xml',
+        'views/templates.xml',
         'views/views.xml'
     ],
     'assets': {
