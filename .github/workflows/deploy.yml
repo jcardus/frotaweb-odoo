@@ -59,12 +59,14 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
-          echo "Downloading the latest version of auth_oauth_autologin module"
           curl -L https://github.com/OCA/server-auth/archive/refs/heads/14.0.zip -o auth_oauth_autologin.zip
+          curl -L https://github.com/jcardus/odoo-traccar/archive/refs/heads/master.zip -o odoo-traccar.zip
           echo "Extracting the module"
           unzip auth_oauth_autologin.zip
-          mv -v server-auth-14.0/auth_oauth_autologin "$PROJECT_DIR/addons/"
-          rm -rf server-auth-14.0 auth_oauth_autologin.zip || true
+          unzip odoo-traccar.zip          
+          mv -v odoo-traccar-master frotaweb
+          mv -v server-auth-14.0/auth_oauth_autologin frotaweb addons
+          rm -rf server-auth-14.0 auth_oauth_autologin.zip odoo-traccar.zip || true
           echo "running sed"
           sed -i "s/%%admin_passwd%%/$ADMIN_PASSWD/g" odoo/odoo.conf    
           sed -i "s|%%SMTP_PASSWORD%%|$SMTP_PASSWORD|g" odoo/odoo.conf  
