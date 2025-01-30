@@ -14,6 +14,7 @@ services:
       - db:db  # This creates a link with hostname 'db'
     environment:
       - TRACCAR_URL=http://gps.frotaweb.com
+    restart: unless-stopped
 
   db:
     image: postgres:15
@@ -26,6 +27,7 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - default
+    restart: unless-stopped
 
 volumes:
   db-data:
