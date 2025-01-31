@@ -60,12 +60,12 @@ jobs:
           git reset --hard origin/main
 
           curl -L https://github.com/OCA/server-auth/archive/refs/heads/14.0.zip -o auth_oauth_autologin.zip
-          curl -L https://github.com/jcardus/odoo-traccar/archive/refs/heads/master.zip -o odoo-traccar.zip
+          curl -L https://github.com/jcardus/odoo_traccar/archive/refs/heads/master.zip -o odoo-traccar.zip
           echo "Extracting the module"
           unzip auth_oauth_autologin.zip
           unzip odoo-traccar.zip          
-          mv -v odoo-traccar-master frotaweb
-          mv -v server-auth-14.0/auth_oauth_autologin frotaweb addons
+          mv -v odoo_traccar-master odoo_traccar
+          mv -v server-auth-14.0/auth_oauth_autologin odoo_traccar addons
           rm -rf server-auth-14.0 auth_oauth_autologin.zip odoo-traccar.zip || true
           echo "running sed"
           sed -i "s/%%admin_passwd%%/$ADMIN_PASSWD/g" odoo/odoo.conf    
