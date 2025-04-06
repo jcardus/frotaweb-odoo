@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  odoo-ee:
+    image: odoo
+    container_name: odoo-ee
+    ports:
+      - "8070:8069"
+    volumes:
+      - ../odoo-ee:/etc/odoo
+      - ../addons-ee:/addons
+    links:
+      - db:db  # This creates a link with hostname 'db'
+    restart: unless-stopped
+
   odoo:
     image: odoo
     container_name: odoo
