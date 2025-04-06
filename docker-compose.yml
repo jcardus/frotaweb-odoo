@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   odoo-ee:
+    user: root
     image: odoo
     container_name: odoo-ee
     ports:
