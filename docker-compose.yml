@@ -10,7 +10,7 @@ services:
     volumes:
       - ../odoo-ee:/etc/odoo
       - ../addons-ee:/addons
-      - ../odoo-ee-filestore:/var/lib/odoo/.local/share/Odoo/filestore
+      - ../odoo-ee-filestore:/root/.local/share/Odoo/filestore
     links:
       - db:db  # This creates a link with hostname 'db'
     restart: unless-stopped
