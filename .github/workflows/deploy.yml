@@ -75,7 +75,22 @@ jobs:
           sed -i "s|%%AUTH_DOMAIN%%|$AUTH_DOMAIN|g" addons/odoo_traccar/data/oauth_provider_data.xml
           sed -i "s|%%OPEN_ID_CLIENT_SECRET%%|$OPEN_ID_CLIENT_SECRET|g" 18.0/odoo/addons/auth_oauth/models/res_users.py
           echo "copy files"
-          docker cp ./18.0 odoo:/usr/lib/python3/dist-packages      
+          docker cp ./18.0 odoo:/usr/lib/python3/dist-packages
+          
+          echo "updating odoo ee..."
+          cd ..
+          cd fleet_traccar
+          git pull
+          cd ..
+          cd frotaweb-traccar
+          git pull
+          npm run build-odoo
+          cd ..
+          rm -rfv fleet_traccar/static/traccar
+          mv -v frotaweb-traccar/traccar-web/build fleet_traccar/static/traccar
+          rm -rfv addons-ee/fleet_traccar
+          cp -rv fleet_traccar addons-ee
+          cd "$PROJECT_DIR"
           echo "restart"
           docker-compose down
           docker-compose up -d
